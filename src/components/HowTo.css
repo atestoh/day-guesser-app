@@ -1,0 +1,127 @@
+.how-to-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  width: 800px;
+  min-height: 450px;
+  
+  /* The Glass Effect */
+  background: rgba(20, 20, 40, 0.65);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  
+  animation: fadeIn 0.8s ease-out;
+  padding: 2rem;
+  color: #f0f0f0;
+}
+
+.how-to-content {
+  width: 100%;
+  max-height: 70vh; /* Make it scrollable on smaller screens */
+  overflow-y: auto;
+  padding-right: 1rem; /* Space for the scrollbar */
+  text-align: left;
+}
+
+/* Custom scrollbar for a modern look */
+.how-to-content::-webkit-scrollbar {
+  width: 8px;
+}
+.how-to-content::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+.how-to-content::-webkit-scrollbar-thumb {
+  background: rgba(0, 229, 255, 0.6);
+  border-radius: 10px;
+}
+.how-to-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 229, 255, 0.9);
+}
+
+.how-to-title {
+  text-align: center;
+  margin: 0;
+  font-size: 3rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, #9f55ff, #ff4b79, #00c4ff);
+  background-size: 200% auto;
+  color: #fff;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: text-shine 5s linear infinite;
+}
+
+.how-to-subtitle {
+  text-align: center;
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin-top: 0.5rem;
+}
+
+.how-to-content h3 {
+  color: #00e5ff;
+  border-bottom: 1px solid rgba(0, 229, 255, 0.3);
+  padding-bottom: 0.5rem;
+  margin-top: 2rem;
+}
+
+.how-to-content p, .how-to-content li {
+  line-height: 1.7;
+  font-size: 1.05rem;
+}
+
+.how-to-content strong {
+  color: #ffde59;
+}
+
+.how-to-content em {
+  color: #ff8fde;
+  font-style: italic;
+}
+
+.how-to-content code {
+  background-color: rgba(0, 0, 0, 0.3);
+  padding: 0.2em 0.4em;
+  margin: 0;
+  font-size: 0.9em;
+  border-radius: 3px;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.formula {
+  display: block;
+  text-align: center;
+  font-size: 1.2rem !important;
+  padding: 0.8rem !important;
+  margin: 1rem 0 !important;
+}
+
+.divider {
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(to right, transparent, rgba(255,255,255,0.2), transparent);
+  margin: 2rem 0;
+}
+
+.how-to-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+}
+
+.how-to-table th, .how-to-table td {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 0.8rem;
+  text-align: center;
+}
+
+.how-to-table th {
+  background-color: rgba(0, 229, 255, 0.1);
+  color: #00e5ff;
+}

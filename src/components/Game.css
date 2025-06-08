@@ -1,0 +1,227 @@
+/* --- Keyframe Animations for Smooth Entrances and Feedback --- */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes float {
+	0% { transform: translatey(0px); }
+	50% { transform: translatey(-8px); }
+	100% { transform: translatey(0px); }
+}
+
+@keyframes text-shine {
+  to { background-position: 200% center; }
+}
+
+@keyframes pop-in {
+    0% { transform: scale(0.5); opacity: 0; }
+    80% { transform: scale(1.05); opacity: 1; }
+    100% { transform: scale(1); }
+}
+
+@keyframes shake-correct {
+  0%, 100% { transform: translateX(0) rotate(0); }
+  25% { transform: translateX(-2px) rotate(-0.5deg); }
+  75% { transform: translateX(2px) rotate(0.5deg); }
+}
+
+@keyframes shake-wrong {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+  20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+@keyframes pulse-green {
+    0% { box-shadow: 0 0 25px rgba(76, 175, 80, 0.7); }
+    50% { box-shadow: 0 0 45px rgba(76, 175, 80, 1); }
+    100% { box-shadow: 0 0 25px rgba(76, 175, 80, 0.7); }
+}
+
+/* --- Main Container with new animation triggers --- */
+.game-container {
+  position: relative; /* Added for positioning the back button */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  width: 650px;
+  min-height: 450px;
+  justify-content: center;
+  background: rgba(20, 20, 40, 0.45);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  animation: float 6s ease-in-out infinite;
+  padding: 2rem 3rem;
+  color: #f0f0f0;
+  transition: transform 0.5s ease;
+}
+.game-container.correct {
+    animation: float 6s ease-in-out infinite, shake-correct 0.4s ease-in-out;
+}
+.game-container.wrong {
+    animation: float 6s ease-in-out infinite, shake-wrong 0.5s ease-in-out;
+}
+
+/* --- Menu & Results Screens --- */
+.menu-screen, .results-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+    animation: fadeIn 0.8s ease-out;
+}
+.menu-screen h2, .results-screen h2 {
+    margin: 0;
+    font-size: 3rem;
+    font-weight: 700;
+    background: linear-gradient(90deg, #9f55ff, #ff4b79, #00c4ff);
+    background-size: 200% auto;
+    color: #fff;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: text-shine 5s linear infinite;
+}
+.menu-screen p, .results-screen p {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0;
+}
+.results-screen span {
+    color: #00e5ff; /* Bright Cyan */
+    font-weight: 600;
+    text-shadow: 0 0 8px rgba(0, 229, 255, 0.7);
+}
+
+/* --- Polished In-Game Screen Elements --- */
+.date-display {
+    font-size: 2.8rem;
+    font-weight: 700;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    animation: fadeIn 0.5s ease-out;
+}
+.message-area {
+    min-height: 4rem;
+    text-align: center;
+}
+.message-area p {
+    margin: 0.2rem 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #ffde59; /* Bright Gold */
+    text-shadow: 0 0 8px rgba(255, 222, 89, 0.7);
+}
+.time-display {
+    color: #00e5ff !important; /* Bright Cyan */
+    text-shadow: 0 0 8px rgba(0, 229, 255, 0.7) !important;
+}
+.message-area.pop-in, .next-button-container.pop-in-late {
+    animation: pop-in 0.5s ease-out;
+}
+.next-button-container.pop-in-late {
+    animation-delay: 0.5s; /* Delay for next button */
+    animation-fill-mode: backwards;
+}
+
+/* --- Buttons --- */
+button {
+    padding: 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: white;
+    background: linear-gradient(90deg, #36125a, #6c1a82);
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 20px rgba(175, 93, 255, 0.6);
+    background: linear-gradient(90deg, #4a197c, #8c23a9);
+}
+button:active {
+    transform: scale(0.95);
+    box-shadow: none;
+}
+.mode-selection {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1rem;
+    width: 70%;
+}
+.mode-selection button, .menu-button, .next-button {
+    font-size: 1.1rem !important;
+    padding: 0.8rem 1.5rem !important;
+}
+.next-button {
+    background: linear-gradient(90deg, #0072ff, #00c6ff);
+}
+.next-button:hover {
+    box-shadow: 0 0 20px rgba(0, 196, 255, 0.7);
+    background: linear-gradient(90deg, #007bff, #00d2ff);
+}
+
+/* --- Styling for the answered buttons --- */
+.day-buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    width: 100%;
+    animation: fadeIn 0.5s ease-out 0.4s;
+    animation-fill-mode: backwards;
+}
+.day-buttons button:nth-child(n+5) { grid-column: span 2; }
+.next-button-container { display: flex; justify-content: center; }
+
+.day-buttons.answered button {
+    cursor: not-allowed;
+    transition: all 0.5s ease;
+}
+.day-buttons button.correct-answer {
+    background: linear-gradient(90deg, #1f9a23, #4CAF50);
+    transform: scale(1.1);
+    box-shadow: 0 0 30px rgba(76, 175, 80, 0.9);
+    animation: pulse-green 1.5s infinite;
+    z-index: 10;
+}
+.day-buttons button.wrong-answer {
+    background: linear-gradient(90deg, #c31432, #ff416c);
+    opacity: 0.9;
+    transform: scale(0.95);
+}
+.day-buttons button.other-button {
+    opacity: 0.4;
+    transform: scale(0.9);
+}
+
+/* --- NEW STYLES for 'How-To' and 'Back' buttons --- */
+.how-to-button {
+    background: linear-gradient(90deg, #1d677a, #39bda7) !important;
+}
+.how-to-button:hover {
+    box-shadow: 0 0 20px rgba(57, 189, 167, 0.7) !important;
+    background: linear-gradient(90deg, #217a8f, #41d4ba) !important;
+}
+.back-button-ingame {
+    position: absolute;
+    top: 1.5rem;
+    left: 1.5rem;
+    padding: 0.5rem 1rem !important;
+    font-size: 0.9rem !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    box-shadow: none !important;
+}
+.back-button-ingame:hover {
+    background: rgba(255, 255, 255, 0.2) !important;
+    box-shadow: none !important;
+    transform: translateY(0) !important; /* Override hover effect */
+}
