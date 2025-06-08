@@ -1,0 +1,97 @@
+.leaderboard-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  width: 900px;
+  min-height: 450px;
+  
+  /* The Glass Effect */
+  background: rgba(20, 20, 40, 0.65);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  
+  animation: fadeIn 0.8s ease-out;
+  padding: 2rem;
+  color: #f0f0f0;
+}
+
+.leaderboard-title {
+  text-align: center;
+  margin: 0;
+  font-size: 3rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, #ffde59, #ff9559, #00c4ff);
+  background-size: 200% auto;
+  color: #fff;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: text-shine 5s linear infinite;
+}
+
+.leaderboards-wrapper {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    gap: 2rem;
+}
+
+.leaderboard-table-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.leaderboard-table-container h3 {
+    text-align: center;
+    color: #00e5ff;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+.leaderboard-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+.leaderboard-table th {
+  color: #ffde59;
+  padding: 0.8rem;
+  border-bottom: 2px solid rgba(255, 222, 89, 0.5);
+}
+
+.leaderboard-table td {
+  padding: 0.7rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.leaderboard-table tbody tr:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+.leaderboard-table tbody tr:hover {
+  background-color: rgba(0, 229, 255, 0.1);
+}
+
+.no-scores {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.5);
+    margin-top: 2rem;
+}
+/* ... all previous styles from the last response ... */
+
+.loading-message, .error-message {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.7);
+    margin-top: 2rem;
+    font-size: 1.2rem;
+}
+
+.error-message {
+    color: #ff4b79;
+}
