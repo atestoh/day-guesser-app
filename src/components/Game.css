@@ -202,7 +202,70 @@ button:active {
     transform: scale(0.9);
 }
 
-/* --- NEW STYLES for 'How-To' and 'Back' buttons --- */
+/* --- Time Attack Mode & Setup Styles --- */
+.time-attack-button {
+    background: linear-gradient(90deg, #d38312, #a83279) !important;
+}
+.time-attack-button:hover {
+    box-shadow: 0 0 20px rgba(211, 131, 18, 0.7) !important;
+    background: linear-gradient(90deg, #e08e1a, #b83884) !important;
+}
+.back-to-menu-button {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    box-shadow: none !important;
+    margin-top: 1rem;
+}
+.back-to-menu-button:hover {
+    background: rgba(255, 255, 255, 0.2) !important;
+}
+.time-input-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 1rem 0;
+}
+.time-input {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2rem;
+    font-weight: 600;
+    width: 100px;
+    padding: 0.5rem;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    border-radius: 8px;
+}
+.time-input-container span {
+    font-size: 1.5rem;
+    color: rgba(255, 255, 255, 0.7);
+}
+.game-header {
+    position: absolute;
+    top: 1.5rem;
+    left: 1.5rem;
+    right: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: calc(100% - 3rem);
+}
+.score-display-ta {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #ffde59;
+    text-shadow: 0 0 8px rgba(255, 222, 89, 0.7);
+}
+.countdown-timer {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #00e5ff;
+    text-shadow: 0 0 10px rgba(0, 229, 255, 0.8);
+}
+
+/* --- How-To and Back Button Styles --- */
 .how-to-button {
     background: linear-gradient(90deg, #1d677a, #39bda7) !important;
 }
