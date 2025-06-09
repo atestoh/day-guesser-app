@@ -5,14 +5,6 @@ import HowTo from './HowTo.jsx';
 import CountdownTimer from './CountdownTimer.jsx';
 import Leaderboard from './Leaderboard.jsx';
 
-// Sound files
-import soundClick from '/sounds/click.mp3';
-import soundCorrect from '/sounds/correct.mp3';
-import soundWrong from '/sounds/wrong.mp3';
-import soundStart from '/sounds/start.mp3';
-import soundFinish from '/sounds/finish.mp3';
-import soundSave from '/sounds/start.mp3';
-
 const DAYS_OF_WEEK = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
 function generateRandomDate() {
@@ -40,12 +32,12 @@ function Game() {
     const [lastRoundTime, setLastRoundTime] = useState(null);
     const [finalResults, setFinalResults] = useState({ totalTime: 0, correctAnswers: 0, totalGuesses: 0 });
 
-    const [playClick] = useSound(soundClick, { volume: 0.5 });
-    const [playCorrect] = useSound(soundCorrect, { volume: 0.6 });
-    const [playWrong] = useSound(soundWrong, { volume: 0.6 });
-    const [playStart] = useSound(soundStart, { volume: 0.7 });
-    const [playFinish] = useSound(soundFinish, { volume: 0.7 });
-    const [playSave] = useSound(soundSave, { volume: 0.7 });
+    const [playClick] = useSound('/sounds/click.mp3', { volume: 0.5 });
+    const [playCorrect] = useSound('/sounds/correct.mp3', { volume: 0.6 });
+    const [playWrong] = useSound('/sounds/wrong.mp3', { volume: 0.6 });
+    const [playStart] = useSound('/sounds/start.mp3', { volume: 0.7 });
+    const [playFinish] = useSound('/sounds/finish.mp3', { volume: 0.7 });
+    const [playSave] = useSound('/sounds/start.mp3', { volume: 0.7 });
 
     const setupGame = (mode, config) => {
         playStart();
@@ -57,11 +49,11 @@ function Game() {
         setIsSaving(false);
         setPlayerName('');
         challengeStartTime.current = Date.now();
-        startNewRound();
+        startNewRound(mode); // Pass the 'mode' variable directly
         setScreen('playing');
     };
 
-    const startNewRound = () => {
+    const startNewRound = (mode) => { // Accept 'mode' as an argument
         const newDate = generateRandomDate();
         setCurrentDate(newDate);
         setCorrectDayIndex(newDate.getDay());
@@ -69,11 +61,12 @@ function Game() {
         setLastRoundTime(null);
         setUserGuess(null);
         setFeedback('');
-        if (gameMode === 'practice') {
+        // Use the 'mode' argument here, NOT the gameMode state
+        if (mode === 'practice') {
             setMessage("What day of the week is it?");
-        } else if (gameMode.startsWith('challenge')) {
+        } else if (mode.startsWith('challenge')) {
             setMessage(`Date ${currentRound} of ${challengeConfig.rounds}`);
-        } else {
+        } else { // Time Attack
             setMessage("Guess as fast as you can!");
         }
         roundStartTime.current = Date.now();
@@ -93,7 +86,7 @@ function Game() {
             totalGuesses: prev.totalGuesses + 1,
         }));
         if (gameMode === 'time_attack') {
-            startNewRound();
+            startNewRound(gameMode);
         } else {
             const elapsed = (Date.now() - roundStartTime.current) / 1000;
             setLastRoundTime(elapsed);
@@ -107,7 +100,7 @@ function Game() {
     const handleNext = () => {
         playClick();
         if (gameMode === 'practice') {
-            startNewRound();
+            startNewRound(gameMode);
         } else if (gameMode.startsWith('challenge')) {
             if (currentRound >= challengeConfig.rounds) {
                 finishGame();
@@ -153,26 +146,53 @@ function Game() {
             setIsSaving(false);
         }
     };
-
+    
     useEffect(() => {
-        if (screen === 'playing' && gameMode.startsWith('challenge') && currentRound > 1) {
-            startNewRound();
+        if (gameMode && screen === 'playing' && gameMode.startsWith('challenge') && currentRound > 1) {
+            startNewRound(gameMode);
         }
-    }, [currentRound]);
+    }, [currentRound, gameMode, screen]);
 
     const returnToMenu = () => {
         playClick();
         setScreen('menu');
         setGameMode(null);
     };
+
+    const getButtonClassName = (index) => {
+        if (!isRoundFinished) return '';
+        if (index === correctDayIndex) return 'correct-answer';
+        if (index === userGuess) return 'wrong-answer';
+        return 'other-button';
+    };
     
-    // ... (rest of the file remains the same until the render logic)
-    // --- RENDER LOGIC ---
     if (screen === 'leaderboard') return <Leaderboard onBack={returnToMenu} />;
     if (screen === 'howto') return <HowTo onBack={returnToMenu} />;
 
     if (screen === 'time_attack_setup') {
-        // ... same as before
+        return (
+            <div className="game-container">
+                <div className="menu-screen">
+                    <h2>Time Attack Setup</h2>
+                    <p>How long should the timer run?</p>
+                    <div className="time-input-container">
+                        <input
+                            type="number"
+                            className="time-input"
+                            value={challengeConfig.duration}
+                            onChange={(e) => setChallengeConfig({...challengeConfig, duration: parseInt(e.target.value, 10) || 0})}
+                            min="10"
+                            step="5"
+                        />
+                        <span>seconds</span>
+                    </div>
+                    <div className="mode-selection">
+                        <button onClick={() => setupGame('time_attack', challengeConfig)}>Start Time Attack</button>
+                        <button onClick={returnToMenu} className="back-to-menu-button">Back to Menu</button>
+                    </div>
+                </div>
+            </div>
+        );
     }
     
     if (screen === 'menu') {
@@ -240,7 +260,6 @@ function Game() {
         );
     }
     
-    // ... Playing screen render logic remains the same as the previous response ...
     return (
         <div className={`game-container ${feedback}`}>
             <div className="game-header">

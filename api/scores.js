@@ -13,7 +13,7 @@ export default async function handler(request, response) {
 
 async function handleGet(request, response) {
     try {
-        // Create the table if it doesn't exist yet
+        // Create the table if it doesn't exist yet. This is safe to run every time.
         await sql`
             CREATE TABLE IF NOT EXISTS Scores (
                 id SERIAL PRIMARY KEY,
@@ -32,6 +32,7 @@ async function handleGet(request, response) {
         `;
         return response.status(200).json(rows);
     } catch (error) {
+        // Ensure the response is always JSON, even for errors
         return response.status(500).json({ error: error.message });
     }
 }
@@ -57,6 +58,7 @@ async function handlePost(request, response) {
         `;
         return response.status(201).json({ message: 'Score saved successfully.' });
     } catch (error) {
+        // Ensure the response is always JSON, even for errors
         return response.status(500).json({ error: error.message });
     }
 }
